@@ -1,0 +1,148 @@
+---
+---
+
+html, body, div, span, applet, object, iframe,
+h1, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+$grorange       : rgb(255,105,  5);
+$grdarkorange   : rgb(240,105,  5);
+$grgrey         : rgb(125,125,125);
+$grlightgrey    : rgb(239,239,239);
+
+/* unvisited link */
+a:link {
+    color: $grorange;
+}
+
+/* visited link */
+a:visited {
+    color: $grgrey;
+}
+
+/* mouse over link */
+a:hover {
+    color: $grdarkorange;
+}
+
+/* selected link */
+a:active {
+    color: $grorange;
+}
+
+#top, .content {
+    width: 75%;
+    left: 12.5%;
+    position: relative;
+}
+
+#top {
+    width: 74.5%;
+    background-color: $grlightgrey;
+    height: 150px;
+    font:  Helvetica, sans-serif;
+    border: 3px solid $grlightgrey;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px $grgrey;
+}
+
+.content {
+    top: 20px;
+}
+
+#gr-logo {
+    width: 150px;
+    position: absolute;
+    left: 0px;
+}
+
+#cgran {
+    font: 28px Helvetica, sans-serif;
+    position: absolute;
+    left: 150px;
+    line-height: 28px;
+}
+
+#navigation {
+    position: absolute;
+    right: 0px;
+}
+
+#links {
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    font: 14pt Helvetica, sans-serif;
+    position: absolute;
+    top: 0px;
+    width: 150px;
+}
+
+#search {
+    position: absolute;
+    right: 0px;
+    font: 14pt Helvetica, sans-serif;
+    position: absolute;
+    top: 120px;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: 2px solid $grgrey;
+    border-radius: 9px;
+    box-shadow: 1px 1px 2px $grgrey;
+}
+
+td {
+    border: 1px solid #CCCCCC;
+}
+
+tr:nth-child(even) {
+    background: $grlightgrey;
+}
+
+tr:nth-child(odd) {
+    background: white;
+}

@@ -1,0 +1,23 @@
+---
+layout: default
+title: Home
+---
+
+<table width=100%>
+    <tr>
+        <td>Module Name</td>
+        <td>Description</td>
+        <td>Type</td>
+        <td>Author Repository</td>
+        <td>CGRAN Mirror</td>
+    </tr>
+    {% for module in site.grmodules %}
+    <tr>
+        <td> <a href=modules/{{module.title}} >{{ module.title }}</a></td>
+        <td> {{ module.description }} </td>
+        <td> {{ module.type }} </td>
+        <td> <a href={{module.repo}}>{{module.repo}}</a></td>
+        <td> <a href={{module.mirror}}> {{module.mirror}}</a></td>
+    </tr>
+    {% endfor %}
+</table>

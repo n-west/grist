@@ -1,0 +1,9 @@
+
+permalink: pretty
+markdown: redcarpet
+
+collections:
+  grmodules:
+    output: true
+    permalink: /modules/:path/
+    layout: "gr_module"
