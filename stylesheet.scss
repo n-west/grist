@@ -6,7 +6,7 @@ h1, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -54,20 +54,24 @@ $grlightgrey    : rgb(239,239,239);
 /* unvisited link */
 a:link {
     color: $grorange;
+    text-decoration: none;
 }
 
 /* visited link */
 a:visited {
+    text-decoration: none;
     color: $grgrey;
 }
 
 /* mouse over link */
 a:hover {
+    text-decoration: underline;
     color: $grdarkorange;
 }
 
 /* selected link */
 a:active {
+    text-decoration: underline;
     color: $grorange;
 }
 
@@ -117,6 +121,7 @@ a:active {
     position: absolute;
     top: 0px;
     width: 150px;
+    line-height: 15pt;
 }
 
 #search {
@@ -145,4 +150,54 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
     background: white;
+}
+
+.input-group {
+    padding: 10px;
+    position: relative;
+    left: -10px;
+}
+
+input[type=text], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+ 
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 5px $grorange;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid $grorange;
+}
+
+.input-label {
+}
+
+.input-box {
+    width: 22em;
+    left: 0px;
+    position: relative;
+    display: inline-block;
+}
+
+.input-help {
+    position: relative;
+    display: inline-block;
+}
+
+input.button {
+    font: 14pt Helvetica, sans-serif;
+    background-color: $grdarkorange;
+    color: $grlightgrey;
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+    box-shadow: 0 0 0 white;
+    border: 1px solid $grdarkorange;
 }
