@@ -1,0 +1,112 @@
+---
+layout: default
+title: Home
+---
+
+<h2>Submit Module</h2>
+NOTICE: This is just a demo. If you think it would be useful I can make this functional. Until then this page doesn't actually send data anywhere or do anything with it.
+<hr>
+<form name="new_module" action="process.py" method="get">
+<div class="input-group">
+    <div class="input-label">
+        <label>Module Name</label>
+    </div>
+    <div class="input-box">
+        <input id="id_name" type="text" name="name" maxlength="40" size="40em"/>
+    </div>
+    <span class="input-help">
+        Name of the module -- should be unique of the form gr-\w+
+    </span>
+</div>
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Module Type</label>
+    </div>
+    <div class="input-box">
+        <select id="id_module_type" type="text" name="module_type" >
+            <option selected="selected" value="">-----</option>
+            <option value="Blocks">Blocks</option>
+            <option value="Application">Application</option>
+            <option value="Scheduler">Scheduler</option>
+        </select>
+    </div>
+    <span class="input-help">
+    </span>
+</div>
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Summary</label>
+    </div>
+    <div class="input-box">
+        <input id="id_summary" type="text" name="module_summary" maxlength="40" size="40" />
+    </div>
+    <span class="input-help">
+        One-line description of the module
+    </span>
+</div>
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Description</label>
+    </div>
+    <div class="input-box">
+        <textarea id="id_summary" type="text" name="module_description" cols="40" rows="5"></textarea>
+    </div>
+    <span class="input-help">
+        Detailed description (a short README)
+    </span>
+</div>
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Module Repository URL</label>
+    </div>
+    <div class="input-box">
+        <input id="id_fetch_repository" type="text" name="module_repo_url" maxlength="255" size="40" />
+    </div>
+    <span class="input-help">
+        Fetch/clone URL of the repository
+    </span>
+</div>
+
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Module Repository Web Interface URL</label>
+    </div>
+    <div class="input-box">
+        <input id="id_browse_repository" type="text" name="module_repo_browse_url" maxlength="255" size="40"/>
+    </div>
+    <span class="input-help">
+        URL of the web interface for browsing the repository, if any
+    </span>
+</div>
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Module Repository Web Interface URL</label>
+    </div>
+    <div class="input-box">
+        <input id="id_fetch_repository" type="text" name="module_repo_url" maxlength="255" size="40" />
+    </div>
+    <span class="input-help">
+        URL of the web interface for browsing the repository, if any
+    </span>
+</div>
+
+<div class="input-group">
+    <div class="input-label">
+        <label>Module Maintainer</label>
+    </div>
+    <div class="input-box">
+        <input id="id_maintainer" type="text" name="module_maintainer" maxlength="255" size="40" />
+    </div>
+    <span class="input-help">
+        Name of the module maintainer.
+    </span>
+</div>
+
+<input class="button" type="submit" value="Submit Module"></input>
+</form>
