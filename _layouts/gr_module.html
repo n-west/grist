@@ -5,6 +5,9 @@
     <title>Comprehensive GNU Radio Archive</title>
     <link rel="stylesheet" href="/stylesheet.css" type="text/css">
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+    </script>
+
 </head>
 
 <body>
@@ -45,11 +48,14 @@
     Official author repo: <a href={{ page.repo }}>{{page.repo}}</a><br>
     CGRAN mirror: <a href={{ page.mirror }}>{{page.mirror}}</a>
     <h3>Current Status</h3>
+    <h3>Block List</h3>
+    <p>Warning: This is highly experimental and results may be inaccurate</p>
     {{page.status}}<br>
-    Last commit: (this info comes from git mirror)
-    <h3>Author README</h3>
-    Pull that from git repo in a rakefil
+    <div id="blocks_table"></div>
     </div>
 </body>
 
+    <script> 
+      $("#blocks_table").load("/blocks/{{page.title}}.html"); 
+    </script>
 </html>

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+mod=$2
+destdir=${!#}
+
+files=()
+echo "Arguments: "
+args=()
+num=0
+for arg in $@
+do
+	num=$num+1
+	if [[ $num -lt $# ]]
+	then
+	name=$(ls $arg | rev | cut -d'/' -f 1 | rev | sed 's/.md/.git/')
+	grep repo: $arg | cut -d' ' -f 2 | xargs -I url git clone --bare url $destdir/$name
+	if [[ $? -eq 123 ]]
+	then
+		curr_dir=$(pwd)
+		cd $destdir/$name && git remote update
+		cd $curr_dir
+	fi
+	
+	fi
+done
+
+#find $mod -print | 
+
+#for f in $2
+#do
+#	echo "working on $f"
+#	echo `grep repo $f | cut -d' ' -f 2`
+#done

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+indir=$1
+tmpgit=$2
+outdir=$3
+
+gitlisting=$(ls $indir)
+
+echo $gitlisting
+for bare_repo in $gitlisting
+do
+	echo $bare_repo
+	working_repo=$(echo $bare_repo | sed 's/.git//')
+	git clone --depth 1 $indir/$bare_repo $tmpgit/$working_repo
+	ctags -f $tmpgit/$working_repo.tags -R $tmpgit/$working_repo
+	python grist/scripts/generate_block_list.py --inf=$tmpgit/$working_repo.tags --outf=$outdir/$working_repo.html
+done
