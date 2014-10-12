@@ -12,6 +12,25 @@
       var foo = 2;
       $( "#block_detail" ).load( "/blocks/{{page.title}}/"+block+".html" ); 
     }
+    function relative_sticky(id, topSpacing){
+    if(!topSpacing){ var topSpacing = 0; }
+    
+    var el_top = parseFloat(document.getElementById(id).getBoundingClientRect().top);
+        el_top = el_top - parseFloat(document.getElementById(id).style.top);
+        el_top = el_top * (-1);
+        el_top = el_top + topSpacing;
+    
+        if(el_top > 0){
+        document.getElementById(id).style.top = el_top + "px";
+        } else{
+        document.getElementById(id).style.top = "0px";
+        }
+    }
+    
+    window.onscroll = function(){
+    
+        relative_sticky("block_detail", 0);
+    }
     </script>
 
 </head>

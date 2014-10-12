@@ -21,7 +21,6 @@ def read_tags(tag_file):
             block_manifest[make_tags[2]]["impl_file"] = make_tags[1]
             block_manifest[make_tags[2]]["name"] = make_tags[2]
             block_manifest[make_tags[2]]["make"] = make_tags[3]
-            print make_tags[3]
     f.close()
     return block_manifest
 
@@ -80,7 +79,6 @@ def get_block_io_ports(block_manifest):
           else:
             if line.find(ctor) >= 0:
               block_manifest[block["name"]]["ctor"] = line
-              print line
               found_ctor = True
         f.close()
 
@@ -97,7 +95,10 @@ def write_block_pages(fname, outdir, block_manifest):
     for block in block_manifest.values():
         f.write('<div class="block_name" onmouseover="showDetail(\'{0}\');">{0}<br></div>\n'.format(block["name"]))
         block_detail = open(outdir + "/" + block["name"] + ".html", "w")
-        block_detail.write("<h3>{0}</h3>\n".format(block["ctor"]))
+        try:
+           block_detail.write("<h3>{0}</h3>\n".format(block["ctor"]))
+        except:
+           block_detail.write("<h3>{0}</h3>\n".format(block["name"]))
         block_detail.write("<h4>Input ports</h4>\n")
         block_detail.write("<ul>\n")
         block_detail.write("<li>min: {0}</li>\n".format(block["input_sig"]["min_num"]))
