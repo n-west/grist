@@ -13,5 +13,6 @@ do
 	working_repo=$(echo $bare_repo | sed 's/.git//')
 	git clone --depth 1 $indir/$bare_repo $tmpgit/$working_repo
 	ctags -f $tmpgit/$working_repo.tags -R $tmpgit/$working_repo
-	python grist/scripts/generate_block_list.py --inf=$tmpgit/$working_repo.tags --outf=$outdir/$working_repo.html
+        mkdir $outdir/$working_repo
+	python grist/scripts/generate_block_list.py --inf=$tmpgit/$working_repo.tags --outf=$outdir/$working_repo.html --outdir=$outdir/$working_repo
 done

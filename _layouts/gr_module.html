@@ -7,6 +7,12 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
     </script>
+    <script>
+    function showDetail(block){
+      var foo = 2;
+      $( "#block_detail" ).load( "/blocks/{{page.title}}/"+block+".html" ); 
+    }
+    </script>
 
 </head>
 
@@ -52,6 +58,7 @@
     <p>Warning: This is highly experimental and results may be inaccurate</p>
     {{page.status}}<br>
     <div id="blocks_table"></div>
+    </div>
     </div>
 </body>
 

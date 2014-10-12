@@ -2,7 +2,7 @@
 ---
 
 html, body, div, span, applet, object, iframe,
-h1, h4, h5, h6, p, blockquote, pre,
+p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -45,6 +45,15 @@ table {
     border-spacing: 0;
 }
 
+h4 {
+ padding: 0;
+ margin: 10px 5px 5px 1px;
+}
+
+h5 {
+ padding: 1;
+ margin: 0;
+}
 
 $grorange       : rgb(255,105,  5);
 $grdarkorange   : rgb(240,105,  5);
@@ -200,4 +209,18 @@ input.button {
     border-radius: 10px;
     box-shadow: 0 0 0 white;
     border: 1px solid $grdarkorange;
+}
+
+#block_list {
+    width: 20%;
+    position: absolute;
+}
+
+#block_detail {
+    position: absolute;
+    left: 35em;
+}
+
+.block_name {
+    font: 14pt Helvetica, sans-serif;
 }

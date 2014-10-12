@@ -13,7 +13,7 @@ def read_tags(tag_file):
     block_manifest = {}
     for tag in f:
         #pattern = "^(make)\t([a-zA-Z0-9_//]+.cc)\W*\/\^\W+([a-zA-Z0-9_]+)::([a-zA-Z0-9_\(\) ]+)"
-        pattern = "^(make)\t([a-zA-Z0-9_\/\\\-]+.cc)\W+([a-zA-Z0-9_]+)::([a-zA-Z0-9_\(\) ]+)"
+        pattern = "^(make)\t([a-zA-Z0-9_\/\\\-]+.cc)\W+([a-zA-Z0-9_]+)::([a-zA-Z0-9_\(\) ,:<>]*).*(.*$)"
         make_match = re.search(pattern, tag)
         if make_match is not None:
             make_tags = make_match.groups()
@@ -21,6 +21,7 @@ def read_tags(tag_file):
             block_manifest[make_tags[2]]["impl_file"] = make_tags[1]
             block_manifest[make_tags[2]]["name"] = make_tags[2]
             block_manifest[make_tags[2]]["make"] = make_tags[3]
+            print make_tags[3]
     f.close()
     return block_manifest
 
@@ -57,7 +58,7 @@ def get_block_io_ports(block_manifest):
           # if we've already seen the ctor then look for io sigs (because htey must be in the ctor)
           if found_ctor:
             if line.find(io_sig) >= 0:
-                io_size = re.search("\(([\w\(\)\. \[\]]+),([\w\(\)\. \[\]]+),([\?\:a-zA-Z0-9_\(\)\\*) ]+\s*)\w*\)", line)
+                io_size = re.search("\(([\w\(\)\. \+\[\]]+),([\w\(\)\. \:\-\[\]]+),([\?\:a-zA-Z0-9_\(\)\\*) ]+\s*)\w*\)", line)
                 try: 
                   io = io_size.groups()
                 except:
@@ -78,39 +79,73 @@ def get_block_io_ports(block_manifest):
                block_manifest[block["name"]]["pdus_out"].append(pdu_match.groups()[0])
           else:
             if line.find(ctor) >= 0:
+              block_manifest[block["name"]]["ctor"] = line
+              print line
               found_ctor = True
         f.close()
 
     return block_manifest
 
-def write_block_pages(fname, block_manifest):
+def write_block_pages(fname, outdir, block_manifest):
     '''
     Write the table
     '''
     f = open(fname, "w")
     #f.write("<html>\n")
     #f.write("<body>\n")
-    f.write('<table border="1" width=100%>\n')
-    f.write("<tr>\n")
-    f.write("<td>{0}</td>\n".format("Block"))
-    f.write('<td colspan="3">{0}</td>\n'.format("Input Port(s)"))
-    f.write('<td colspan="3">{0}</td>\n'.format("Output Port(s)"))
-    f.write('<td colspan="1">{0}</td>\n'.format("PDU Inputs"))
-    f.write('<td colspan="1">{0}</td>\n'.format("PDU Outputs"))
-    f.write("</tr>\n")
-    f.write("<tr>\n")
-    f.write("<td>{0}</td>\n".format(""))
-    f.write('<td colspan="1">{0}</td>\n'.format("min"))
-    f.write('<td colspan="1">{0}</td>\n'.format("max"))
-    f.write('<td colspan="1">{0}</td>\n'.format("size"))
-    f.write('<td colspan="1">{0}</td>\n'.format("min"))
-    f.write('<td colspan="1">{0}</td>\n'.format("max"))
-    f.write('<td colspan="1">{0}</td>\n'.format("size"))
-    f.write("<td>{0}</td>\n".format(""))
-    f.write("<td>{0}</td>\n".format(""))
-    f.write("</tr>\n")
-    write_td(f, block_manifest)
-    f.write("</table>\n")
+    f.write('<div id="block_list">\n')
+    for block in block_manifest.values():
+        f.write('<div class="block_name" onmouseover="showDetail(\'{0}\');">{0}<br></div>\n'.format(block["name"]))
+        block_detail = open(outdir + "/" + block["name"] + ".html", "w")
+        block_detail.write("<h3>{0}</h3>\n".format(block["ctor"]))
+        block_detail.write("<h4>Input ports</h4>\n")
+        block_detail.write("<ul>\n")
+        block_detail.write("<li>min: {0}</li>\n".format(block["input_sig"]["min_num"]))
+        block_detail.write("<li>max: {0}</li>\n".format(block["input_sig"]["max_num"]))
+        block_detail.write("<li>data size: {0}</li>\n".format(block["input_sig"]["io_size"]))
+        block_detail.write("</ul>\n")
+        block_detail.write("<h4>Output ports</h4>\n")
+        block_detail.write("<ul>\n")
+        block_detail.write("<li>min: {0}</li>\n".format(block["output_sig"]["min_num"]))
+        block_detail.write("<li>max: {0}</li>\n".format(block["output_sig"]["max_num"]))
+        block_detail.write("<li>data size: {0}</li>\n".format(block["output_sig"]["io_size"]))
+        block_detail.write("</ul>\n")
+        block_detail.write("<h4>PDU Outputs</h4>\n")
+        block_detail.write("<ul>\n")
+        for pdu in block["pdus_in"]:
+            block_detail.write("<li>{0}</li>\n".format(pdu))
+        block_detail.write("</ul>\n")
+        block_detail.write("<h4>PDU Inputs</h4>\n")
+        block_detail.write("<ul>\n")
+        for pdu in block["pdus_in"]:
+            block_detail.write("<li>{0}</li>\n".format(pdu))
+        block_detail.write("</ul>\n")
+    f.write('</div>\n')
+    f.write('<div id="block_detail">\n')
+    f.write('</div>\n')
+
+        
+    #   f.write('<table border="1" width=100%>\n')
+    #   f.write("<tr>\n")
+    #   f.write("<td>{0}</td>\n".format("Block"))
+    #   f.write('<td colspan="3">{0}</td>\n'.format("Input Port(s)"))
+    #   f.write('<td colspan="3">{0}</td>\n'.format("Output Port(s)"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("PDU Inputs"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("PDU Outputs"))
+    #   f.write("</tr>\n")
+    #   f.write("<tr>\n")
+    #   f.write("<td>{0}</td>\n".format(""))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("min"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("max"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("size"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("min"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("max"))
+    #   f.write('<td colspan="1">{0}</td>\n'.format("size"))
+    #   f.write("<td>{0}</td>\n".format(""))
+    #   f.write("<td>{0}</td>\n".format(""))
+    #   f.write("</tr>\n")
+    #   write_td(f, block_manifest)
+    #   f.write("</table>\n")
     #f.write("</body>\n")
     #f.write("</html>\n")
 
@@ -139,7 +174,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Write HTML table from ctags info')
     parser.add_argument('--inf', type=str)
     parser.add_argument('--outf', type=str)
+    parser.add_argument('--outdir', type=str)
     args = parser.parse_args()
     block_manifest = read_tags(args.inf)
     block_manifest = get_block_io_ports(block_manifest)
-    write_block_pages(args.outf, block_manifest)
+    write_block_pages(args.outf, args.outdir, block_manifest)
