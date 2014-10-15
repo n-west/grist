@@ -10,7 +10,7 @@ def app(environ, start_response):
     qs = urlparse.parse_qs(environ['QUERY_STRING'])
     process_form(qs)
     start_response('303 See other', [('Content-Type', 'text/html')])
-    print "Location: http://vanilla.ceat.okstate.edu/cgran"
+    print "Location: http://104.131.79.130"
     print
 
     print 'Content-Type: text/html'
@@ -36,7 +36,7 @@ def app(environ, start_response):
     #yield '</p>'
 
 def process_form(qs):
-    f = open("/opt/cgran/staging/_grmodules/"+qs['name'][0] + '.md', "w")
+    f = open("/srv/grist/_grmodules/"+qs['name'][0] + '.md', "w")
     f.write("---\n")
     f.write("title: %s\n" % escape(qs['name'][0]) )
     f.write("author: %s\n" % escape(qs['module_maintainer'][0]) )

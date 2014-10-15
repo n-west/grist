@@ -1,5 +1,11 @@
 #!/bin/bash
 
+##
+# This reads md/yaml from module files and clones bare repos or updates
+# a repo if it already exists. Call it without trailing slashes. Ex:
+#
+# grist/scripts/clone_from_yaml grist/_grmodules/* git_archive_dir
+
 mod=$2
 destdir=${!#}
 
@@ -23,11 +29,3 @@ do
 	
 	fi
 done
-
-#find $mod -print | 
-
-#for f in $2
-#do
-#	echo "working on $f"
-#	echo `grep repo $f | cut -d' ' -f 2`
-#done
