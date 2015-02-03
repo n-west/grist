@@ -18,17 +18,17 @@ gitlisting=$(ls $indir)
 echo $gitlisting
 for bare_repo in $gitlisting
 do
-	echo $bare_repo
-	working_repo=$(echo $bare_repo | sed 's/.git//')
-	git clone file://$indir/$bare_repo $tmpgit/$working_repo 2>> updater.log
-	if [[ $? -eq 128 ]]
-	then
-		curr_dir=$(pwd)
-		cd $tmpgit/$working_repo
-		git pull -q origin master 
-		cd $curr_dir
-	fi
-	ctags -f $tmpgit/$working_repo.tags -R $tmpgit/$working_repo 1>>updater.log
-        mkdir $outdir/$working_repo 2>> updater.log
-	python grist/scripts/generate_block_list.py --inf=$tmpgit/$working_repo.tags --outf=$outdir/$working_repo.html --outdir=$outdir/$working_repo
+    echo $bare_repo
+    working_repo=$(echo $bare_repo | sed 's/.git//')
+    git clone file://$indir/$bare_repo $tmpgit/$working_repo 2>> updater.log
+    if [[ $? -eq 128 ]]
+    then
+    	curr_dir=$(pwd)
+    	cd $tmpgit/$working_repo
+    	git pull -q origin master
+    	cd $curr_dir
+    fi
+    ctags -f $tmpgit/$working_repo.tags -R $tmpgit/$working_repo 1>>updater.log
+    mkdir $outdir/$working_repo 2>> updater.log
+    python grist/scripts/generate_block_list.py --inf=$tmpgit/$working_repo.tags --outf=$outdir/$working_repo.html --outdir=$outdir/$working_repo
 done
